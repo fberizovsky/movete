@@ -2,7 +2,9 @@ package com.example.movete.controller;
 
 import com.example.movete.dto.ResetearPasswordDTO;
 import com.example.movete.dto.UsuarioDto;
+import com.example.movete.model.Ride;
 import com.example.movete.model.Usuario;
+import com.example.movete.repository.RideRepository;
 import com.example.movete.service.UserService;
 
 import jakarta.validation.Valid;
@@ -26,15 +28,13 @@ public class UserController {
     
     @Autowired
     private UserService userService;
-
-
+    
     @GetMapping("/me")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<UsuarioDto> authenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         Usuario currentUser = (Usuario) authentication.getPrincipal();
-
         return ResponseEntity.ok(UsuarioDto.convertToDto(currentUser));
     }
 

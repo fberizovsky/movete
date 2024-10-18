@@ -1,0 +1,22 @@
+# 1
+
+Si tengo un @OneToMany con un @ManyToOne (es decir, una lista de 1 a N) y es de tipo LAZY cuando añado un nuevo elemento NO es necesario actualizar la lista. Si será necesario cuando es de tipo EAGER.
+
+Ejemplo:
+
+User.java
+
+@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+private List<Ride> rides;
+
+Ride.java
+
+@ManyToOne
+@JoinColumn(name = "user_id", nullable = false)
+private Usuario usuario;
+
+Ride ride = Ride.convertToEntity(input);
+ride.setUsuario(currentUser); // Establecer el usuario para el viaje
+rideRepository.save(ride); // Guardar el viaje
+
+Acá no tengo que hacer user.addRide(ride). Si fuera EAGER si tendría que hacerlo
