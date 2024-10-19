@@ -26,7 +26,7 @@ public class UserService {
         List<UsuarioDto> usersDto = new ArrayList<>();
 
         userRepository.findAll().forEach(user -> {
-            usersDto.add(UsuarioDto.convertToDtoWithRole(user));
+            usersDto.add(user.convertToDto(user));
         });
 
         return usersDto;

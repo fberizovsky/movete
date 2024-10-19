@@ -25,6 +25,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.movete.dto.UsuarioDto;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -96,5 +98,16 @@ public class Usuario implements UserDetails {
         return true;
     }
     
+
+    public UsuarioDto convertToDto(Usuario usuario) {
+        UsuarioDto usuarioDto = new UsuarioDto();
+        usuarioDto.setId(usuario.getId());
+        usuarioDto.setEmail(usuario.getEmail());
+        usuarioDto.setUsuario(usuario.getUsuario());
+        usuarioDto.setPassword(usuario.getPassword());
+        usuarioDto.setRole(usuario.getRole().getName());
+        usuarioDto.setFechaNacimiento(usuario.getFechaNacimiento());
+        return usuarioDto;
+    }
     
 }

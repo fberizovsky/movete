@@ -25,26 +25,4 @@ public class UsuarioDto {
     private LocalDate fechaNacimiento;
 
 
-    public static UsuarioDto convertToDto(Usuario usuario) {
-        UsuarioDto usuarioDto = new UsuarioDto();
-        usuarioDto.setId(usuario.getId());
-        usuarioDto.setEmail(usuario.getEmail());
-        usuarioDto.setUsuario(usuario.getUsuario());
-        usuarioDto.setPassword("***********");
-        // usuarioDto.setRole(usuario.getRole().getName());
-        usuarioDto.setFechaNacimiento(usuario.getFechaNacimiento());
-        return usuarioDto;
-    }
-
-    public static UsuarioDto convertToDtoWithRole(Usuario usuario) {
-        UsuarioDto usuarioDto = new UsuarioDto();
-        usuarioDto.setId(usuario.getId());
-        usuarioDto.setEmail(usuario.getEmail());
-        usuarioDto.setUsuario(usuario.getUsuario());
-        usuarioDto.setPassword("***********");
-        usuarioDto.setRole(usuario.getRole().getName());
-        usuarioDto.setFechaNacimiento(usuario.getFechaNacimiento());
-        return usuarioDto;
-    }
-
 }

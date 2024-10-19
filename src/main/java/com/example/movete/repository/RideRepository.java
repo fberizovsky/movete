@@ -7,13 +7,14 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.movete.model.Ride;
+import com.example.movete.model.Usuario;
 
 @Repository
 public interface RideRepository extends JpaRepository<Ride, Long> {
     
     Optional<Ride> findById(Long rideId);
 
-    List<Ride> findByUsuarioId(Long userId);
+    List<Ride> findByUsuario(Usuario usuario);
 
     // public List<Ride> findByUsuarioId(Long usuarioId);}
 

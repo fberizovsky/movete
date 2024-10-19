@@ -6,6 +6,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.example.movete.dto.RegistrarRideDTO;
+import com.example.movete.dto.RideDto;
+import com.example.movete.dto.UsuarioDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -64,6 +66,20 @@ public class Ride {
         rideEntity.setDescription(ride.getDescription());
         rideEntity.setMaxPassengers(ride.getMaxPassengers());
         return rideEntity;
+    }
+
+    public static RideDto convertToDto(Ride ride) {
+        RideDto rideDto = new RideDto();
+        rideDto.setId(ride.getId());
+        rideDto.setStartLocation(ride.getStartLocation());
+        rideDto.setEndLocation(ride.getEndLocation());
+        rideDto.setStartTime(ride.getStartTime());
+        rideDto.setDescription(ride.getDescription());
+        rideDto.setMaxPassengers(ride.getMaxPassengers());
+        rideDto.setFechaCreacion(ride.getFechaCreacion());
+        rideDto.setFechaModificacion(ride.getFechaModificacion());
+        rideDto.setUsuario(ride.getUsuario().convertToDto(ride.getUsuario()));
+        return rideDto;
     }
     
 
