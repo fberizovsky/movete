@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +56,14 @@ public class UserController {
         Usuario currentUser = (Usuario) authentication.getPrincipal();
 
         userService.resetPassword(currentUser, resetearPasswordDTO);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/update-to-admin/{usuarioId}")
+    @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
+    public ResponseEntity<?> updateUserToAdmin(@PathVariable Long usuarioId) {
+        userService.updateUserToAdmin(usuarioId);
 
         return ResponseEntity.ok().build();
     }

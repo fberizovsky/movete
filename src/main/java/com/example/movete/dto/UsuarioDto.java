@@ -18,8 +18,6 @@ public class UsuarioDto {
 
     private String usuario;
 
-    private String password;
-
     private RoleEnum role;
 
     private LocalDate fechaNacimiento;

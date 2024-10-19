@@ -2,7 +2,10 @@ package com.example.movete.service;
 
 import com.example.movete.dto.ResetearPasswordDTO;
 import com.example.movete.dto.UsuarioDto;
+import com.example.movete.model.Role;
+import com.example.movete.model.RoleEnum;
 import com.example.movete.model.Usuario;
+import com.example.movete.repository.RoleRepository;
 import com.example.movete.repository.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,9 @@ public class UserService {
     
     @Autowired
     private UsuarioRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -43,4 +49,24 @@ public class UserService {
         currentUser.setPassword(newPasswordEncoded);
         userRepository.save(currentUser);
     }
+
+    public void updateUserToAdmin(Long usuarioId) {
+        
+        Usuario user = userRepository.findById(usuarioId).
+                orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+
+        if (user.getRole().getName().equals(RoleEnum.ROLE_ADMIN)) {
+            throw new IllegalArgumentException("El usuario ya es administrador");
+        }
+        if (user.getRole().getName().equals(RoleEnum.ROLE_SUPERADMIN)) {
+            throw new IllegalArgumentException("El usuario es superadministrador");
+        }
+        
+        
+        Role role = roleRepository.findByName(RoleEnum.ROLE_ADMIN).get();
+        user.setRole(role);
+
+        userRepository.save(user);
+    }
+
 }

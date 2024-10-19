@@ -97,7 +97,6 @@ public class Usuario implements UserDetails {
         usuarioDto.setId(usuario.getId());
         usuarioDto.setEmail(usuario.getEmail());
         usuarioDto.setUsuario(usuario.getUsuario());
-        usuarioDto.setPassword(usuario.getPassword());
         usuarioDto.setRole(usuario.getRole().getName());
         usuarioDto.setFechaNacimiento(usuario.getFechaNacimiento());
         return usuarioDto;
