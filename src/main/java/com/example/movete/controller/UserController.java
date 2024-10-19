@@ -35,7 +35,7 @@ public class UserController {
 
         Usuario currentUser = (Usuario) authentication.getPrincipal();
 
-        return ResponseEntity.ok(UsuarioDto.convertToDto(currentUser));
+        return ResponseEntity.ok(currentUser.convertToDto(currentUser));
     }
 
     
