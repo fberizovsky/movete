@@ -27,8 +27,7 @@ public class UserController {
     
     @Autowired
     private UserService userService;
-
-
+    
     @GetMapping("/me")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<UsuarioDto> authenticatedUser() {
