@@ -101,6 +101,10 @@ public class Usuario implements UserDetails {
     }
     
 
+    public Boolean getIsValidated() {
+        return Boolean.TRUE.equals(isValidated);
+    }
+
     public UsuarioDto convertToDto(Usuario usuario) {
         UsuarioDto usuarioDto = new UsuarioDto();
         usuarioDto.setId(usuario.getId());
@@ -111,5 +115,6 @@ public class Usuario implements UserDetails {
         usuarioDto.setIsValidated(usuario.getIsValidated());
         return usuarioDto;
     }
+    
     
 }

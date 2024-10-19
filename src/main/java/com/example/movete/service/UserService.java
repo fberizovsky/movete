@@ -62,6 +62,10 @@ public class UserService {
             throw new IllegalArgumentException("El usuario es superadministrador");
         }
 
+        if (!user.getIsValidated()) {
+            throw new IllegalArgumentException("El usuario no está validado");
+        }
+
         
         Role role = roleRepository.findByName(RoleEnum.ROLE_ADMIN).get();
         user.setRole(role);
@@ -93,7 +97,7 @@ public class UserService {
         Usuario user = userRepository.findById(usuarioId).
                 orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
 
-        if (Boolean.TRUE.equals(user.getIsValidated())) {
+        if (user.getIsValidated()) {
             throw new IllegalArgumentException("El usuario ya está validado");
         }
                 

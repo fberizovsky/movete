@@ -21,6 +21,10 @@ public class RideService {
 
     public void saveRide(Usuario currentUser,RegistrarRideDTO input) {
 
+        if (!currentUser.getIsValidated()) {
+            throw new IllegalArgumentException("El usuario no ha sido validado");
+        }
+
         List<Ride> rides = rideRepository.findByUsuario(currentUser);
         for (Ride ride : rides) {
             Boolean boo = Utils.compareHoursDates(ride.getStartTime(), input.getStartTime(), 2);

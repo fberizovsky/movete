@@ -20,3 +20,16 @@ ride.setUsuario(currentUser); // Establecer el usuario para el viaje
 rideRepository.save(ride); // Guardar el viaje
 
 Acá no tengo que hacer user.addRide(ride). Si fuera EAGER si tendría que hacerlo
+
+# 2 Manejo de booleans
+
+
+Estaba preguntando si el usuario ya tenia isValidated en TRUE, lo estaba haciendo de esta forma:
+
+if (user.getIsValidated()) {}
+
+Pero cuando isValidated era NULL rompía.
+
+La forma correcta es esta:
+
+if (Boolean.TRUE.equals(user.getIsValidated())) {}
