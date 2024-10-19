@@ -44,6 +44,7 @@ public class AuthenticationService {
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
         user.setFechaNacimiento(input.getFechaNacimiento());
+        user.setIsValidated(false);
         
         //Set ROLE_USER as default
         roleRepository.findByName(RoleEnum.ROLE_USER)

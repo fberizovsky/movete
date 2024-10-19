@@ -75,4 +75,12 @@ public class UserController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/validate/{usuarioId}")
+    @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
+    public ResponseEntity<?> validateUser(@PathVariable Long usuarioId) {
+        userService.validateUser(usuarioId);
+
+        return ResponseEntity.ok().build();
+    }
 }

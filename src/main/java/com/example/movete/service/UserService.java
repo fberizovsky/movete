@@ -88,4 +88,19 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void validateUser(Long usuarioId) {
+        
+        Usuario user = userRepository.findById(usuarioId).
+                orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+
+        if (Boolean.TRUE.equals(user.getIsValidated())) {
+            throw new IllegalArgumentException("El usuario ya está validado");
+        }
+                
+
+        user.setIsValidated(true);
+
+        userRepository.save(user);
+    }
+
 }

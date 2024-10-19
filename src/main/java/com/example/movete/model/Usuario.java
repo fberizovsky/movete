@@ -59,6 +59,9 @@ public class Usuario implements UserDetails {
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role role;
 
+    @Column(name = "is_validated")
+    private Boolean isValidated;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getName().toString());
@@ -99,6 +102,7 @@ public class Usuario implements UserDetails {
         usuarioDto.setUsuario(usuario.getUsuario());
         usuarioDto.setRole(usuario.getRole().getName());
         usuarioDto.setFechaNacimiento(usuario.getFechaNacimiento());
+        usuarioDto.setIsValidated(usuario.getIsValidated());
         return usuarioDto;
     }
     

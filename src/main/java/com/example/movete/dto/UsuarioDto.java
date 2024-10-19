@@ -21,5 +21,7 @@ public class UsuarioDto {
 
     private LocalDate fechaNacimiento;
 
+    private Boolean isValidated;
+
 
 }
