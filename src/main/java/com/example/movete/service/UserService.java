@@ -61,9 +61,28 @@ public class UserService {
         if (user.getRole().getName().equals(RoleEnum.ROLE_SUPERADMIN)) {
             throw new IllegalArgumentException("El usuario es superadministrador");
         }
-        
+
         
         Role role = roleRepository.findByName(RoleEnum.ROLE_ADMIN).get();
+        user.setRole(role);
+
+        userRepository.save(user);
+    }
+
+    public void downgradeUserToUser(Long usuarioId) {
+        
+        Usuario user = userRepository.findById(usuarioId).
+                orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+
+        if (user.getRole().getName().equals(RoleEnum.ROLE_USER)) {
+            throw new IllegalArgumentException("El usuario ya es usuario");
+        }
+        if (user.getRole().getName().equals(RoleEnum.ROLE_SUPERADMIN)) {
+            throw new IllegalArgumentException("El usuario es superadministrador");
+        }
+
+        
+        Role role = roleRepository.findByName(RoleEnum.ROLE_USER).get();
         user.setRole(role);
 
         userRepository.save(user);

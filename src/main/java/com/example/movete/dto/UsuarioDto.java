@@ -1,7 +1,6 @@
 package com.example.movete.dto;
 
 import com.example.movete.model.RoleEnum;
-import com.example.movete.model.Usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
