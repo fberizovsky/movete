@@ -5,19 +5,22 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
 
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class RideDto {
-    public long id;
-    public String startLocation;
-    public String endLocation;
-    public Date startTime;
-    public String description;
-    public int maxPassengers;
-    public Date fechaCreacion;
-    public Date fechaModificacion;
-    public UsuarioDto usuario;
+    private long id;
+    private String startLocation;
+    private String endLocation;
+    private Date startTime;
+    private String description;
+    private int maxPassengers;
+    private int passengers;
+    private Date fechaCreacion;
+    private Date fechaModificacion;
+    private UsuarioDto usuario;
+    private List<BookingDto> bookings;
 }

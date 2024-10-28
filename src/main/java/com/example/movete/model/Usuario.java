@@ -63,11 +63,11 @@ public class Usuario implements UserDetails {
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role role;
 
-    @Column(name = "is_validated")
-    private Boolean isValidated;
-
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Ride> rides;
+
+    @OneToMany(mappedBy = "pasajero", fetch = FetchType.LAZY)
+    private List<Booking> bookings;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -99,11 +99,6 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-    
-
-    public Boolean getIsValidated() {
-        return Boolean.TRUE.equals(isValidated);
-    }
 
     public UsuarioDto convertToDto(Usuario usuario) {
         UsuarioDto usuarioDto = new UsuarioDto();
@@ -112,9 +107,7 @@ public class Usuario implements UserDetails {
         usuarioDto.setUsuario(usuario.getUsuario());
         usuarioDto.setRole(usuario.getRole().getName());
         usuarioDto.setFechaNacimiento(usuario.getFechaNacimiento());
-        usuarioDto.setIsValidated(usuario.getIsValidated());
         return usuarioDto;
     }
-    
-    
+
 }

@@ -69,8 +69,8 @@ public class UserController {
 
     @PutMapping("/downgrade-to-user/{usuarioId}")
     @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
-    public ResponseEntity<?> downgradeUserToUser(@PathVariable Long usuarioId) {
-        userService.downgradeUserToUser(usuarioId);
+    public ResponseEntity<?> downgradeAdminToUser(@PathVariable Long usuarioId) {
+        userService.downgradeAdminToUser(usuarioId);
 
         return ResponseEntity.ok().build();
     }

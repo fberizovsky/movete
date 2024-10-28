@@ -7,9 +7,9 @@ import com.example.movete.model.RoleEnum;
 import com.example.movete.model.Usuario;
 import com.example.movete.repository.RoleRepository;
 import com.example.movete.repository.UsuarioRepository;
+import com.example.movete.validators.UserValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,8 +24,8 @@ public class UserService {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    @Autowired 
+    private UserValidator userValidator;
 
     public List<UsuarioDto> allUsers() {
 
@@ -39,53 +39,26 @@ public class UserService {
     }
 
     public void resetPassword(Usuario currentUser, ResetearPasswordDTO resetearPasswordDTO) {
+        String password = userValidator.validateResetPassword(resetearPasswordDTO.getPassword(), currentUser.getPassword());
 
-        String newPasswordEncoded = passwordEncoder.encode(resetearPasswordDTO.getPassword());
 
-        if (passwordEncoder.matches(resetearPasswordDTO.getPassword(), currentUser.getPassword())) {
-            throw new IllegalArgumentException("La nueva contraseña no puede ser igual a la anterior");
-        }
-
-        currentUser.setPassword(newPasswordEncoded);
+        currentUser.setPassword(password);
         userRepository.save(currentUser);
     }
 
     public void updateUserToAdmin(Long usuarioId) {
         
-        Usuario user = userRepository.findById(usuarioId).
-                orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+        Usuario user = userValidator.validateUpdateUserToAdmin(usuarioId);
 
-        if (user.getRole().getName().equals(RoleEnum.ROLE_ADMIN)) {
-            throw new IllegalArgumentException("El usuario ya es administrador");
-        }
-        if (user.getRole().getName().equals(RoleEnum.ROLE_SUPERADMIN)) {
-            throw new IllegalArgumentException("El usuario es superadministrador");
-        }
-
-        if (!user.getIsValidated()) {
-            throw new IllegalArgumentException("El usuario no está validado");
-        }
-
-        
         Role role = roleRepository.findByName(RoleEnum.ROLE_ADMIN).get();
         user.setRole(role);
 
         userRepository.save(user);
     }
 
-    public void downgradeUserToUser(Long usuarioId) {
+    public void downgradeAdminToUser(Long usuarioId) {
         
-        Usuario user = userRepository.findById(usuarioId).
-                orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
-
-        if (user.getRole().getName().equals(RoleEnum.ROLE_USER)) {
-            throw new IllegalArgumentException("El usuario ya es usuario");
-        }
-        if (user.getRole().getName().equals(RoleEnum.ROLE_SUPERADMIN)) {
-            throw new IllegalArgumentException("El usuario es superadministrador");
-        }
-
-        
+        Usuario user = userValidator.validateDowngradeAdminToUser(usuarioId);
         Role role = roleRepository.findByName(RoleEnum.ROLE_USER).get();
         user.setRole(role);
 
@@ -94,16 +67,10 @@ public class UserService {
 
     public void validateUser(Long usuarioId) {
         
-        Usuario user = userRepository.findById(usuarioId).
-                orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+        Usuario user = userValidator.validateValidateUser(usuarioId);
 
-        if (user.getIsValidated()) {
-            throw new IllegalArgumentException("El usuario ya está validado");
-        }
-                
 
-        user.setIsValidated(true);
-
+        user.setRole(roleRepository.findByName(RoleEnum.ROLE_USER).get());
         userRepository.save(user);
     }
 

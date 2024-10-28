@@ -6,6 +6,7 @@ import com.example.movete.model.RoleEnum;
 import com.example.movete.model.Usuario;
 import com.example.movete.repository.RoleRepository;
 import com.example.movete.repository.UsuarioRepository;
+import com.example.movete.validators.AuthenticationValidator;
 
 import java.util.Optional;
 
@@ -30,24 +31,21 @@ public class AuthenticationService {
     @Autowired
     private RoleRepository roleRepository;
 
- 
+    @Autowired
+    private AuthenticationValidator authenticationValidator;
 
     public Usuario signup(RegistrarUsuarioDTO input) {
 
-        Optional<Usuario> existingUser = userRepository.findByEmail(input.getEmail());
-        if (existingUser.isPresent()) {
-            throw new IllegalArgumentException("Email already in use");
-        }
+        authenticationValidator.validateSignup(input.getEmail());
 
         Usuario user = new Usuario();
         user.setUsuario(input.getUsuario());
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
         user.setFechaNacimiento(input.getFechaNacimiento());
-        user.setIsValidated(false);
         
         //Set ROLE_USER as default
-        roleRepository.findByName(RoleEnum.ROLE_USER)
+        roleRepository.findByName(RoleEnum.ROLE_USER_NOT_VERIFIED)
                 .ifPresent(user::setRole);
         
         
