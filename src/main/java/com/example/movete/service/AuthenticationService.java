@@ -8,7 +8,6 @@ import com.example.movete.repository.RoleRepository;
 import com.example.movete.repository.UsuarioRepository;
 import com.example.movete.validators.AuthenticationValidator;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -5,7 +5,7 @@ import com.example.movete.model.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +19,7 @@ public class UsuarioDto {
 
     private RoleEnum role;
 
-    private LocalDate fechaNacimiento;
+    private LocalDateTime fechaNacimiento;
 
 
 }

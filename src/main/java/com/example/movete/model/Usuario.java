@@ -1,9 +1,8 @@
 package com.example.movete.model;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -49,15 +48,15 @@ public class Usuario implements UserDetails {
 
     @CreationTimestamp
     @Column(name = "fecha_creacion")
-    private Date fechaCreacion;
+    private LocalDateTime fechaCreacion;
 
     @UpdateTimestamp
     @Column(name = "fecha_modificacion")
-    private Date fechaModificacion;
+    private LocalDateTime fechaModificacion;
 
 
     @Column(name = "fecha_nacimiento", nullable = false)
-    private LocalDate fechaNacimiento;
+    private LocalDateTime fechaNacimiento;
 
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
@@ -100,13 +99,13 @@ public class Usuario implements UserDetails {
         return true;
     }
 
-    public UsuarioDto convertToDto(Usuario usuario) {
+    public UsuarioDto convertToDto() {
         UsuarioDto usuarioDto = new UsuarioDto();
-        usuarioDto.setId(usuario.getId());
-        usuarioDto.setEmail(usuario.getEmail());
-        usuarioDto.setUsuario(usuario.getUsuario());
-        usuarioDto.setRole(usuario.getRole().getName());
-        usuarioDto.setFechaNacimiento(usuario.getFechaNacimiento());
+        usuarioDto.setId(this.getId());
+        usuarioDto.setEmail(this.getEmail());
+        usuarioDto.setUsuario(this.getUsuario());
+        usuarioDto.setRole(this.getRole().getName());
+        usuarioDto.setFechaNacimiento(this.getFechaNacimiento());
         return usuarioDto;
     }
 

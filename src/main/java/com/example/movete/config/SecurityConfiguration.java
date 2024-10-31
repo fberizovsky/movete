@@ -35,7 +35,7 @@ public class SecurityConfiguration {
         http.csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**")
+                .requestMatchers("/auth/**", "/h2-console/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -44,7 +44,9 @@ public class SecurityConfiguration {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .csrf().disable() //TODO remove this line, FUE AGREGADA PARA H2
+                .headers().frameOptions().disable(); //TODO remove this line, FUE AGREGADA PARA H2
 
         return http.build();
     }

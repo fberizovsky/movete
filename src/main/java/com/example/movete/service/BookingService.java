@@ -22,10 +22,11 @@ public class BookingService {
         List<BookingDto> bookingsDto= new ArrayList<>();
 
         bookingRepository.findByPasajero(currentUser).forEach(booking -> {
-            bookingsDto.add(booking.convertToDtoMyBookings(booking));
+            bookingsDto.add(booking.convertToDtoMyBookings());
         });
 
         return bookingsDto;
     }
+
 
 }

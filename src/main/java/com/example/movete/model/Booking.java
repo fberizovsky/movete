@@ -66,35 +66,35 @@ public class Booking {
         ride.addBooking(this);
     }
 
-    public BookingDto convertToDto(Booking booking) {
+    public BookingDto convertToDto() {
         BookingDto bookingDto = new BookingDto();
-        bookingDto.setId(booking.getId());
-        bookingDto.setPasajero(booking.getPasajero().convertToDto(booking.getPasajero()));
-        bookingDto.setRide(booking.getRide().convertToDto(booking.getRide()));
-        bookingDto.setStatus(booking.getStatus());
-        bookingDto.setBookingTime(booking.getBookingTime());
-        bookingDto.setCancellationReason(booking.getCancellationReason());
-        bookingDto.setPassengerRating(booking.getPassengerRating());
-        bookingDto.setDriverRating(booking.getDriverRating());
+        bookingDto.setId(this.id);
+        bookingDto.setPasajero(this.pasajero.convertToDto());
+        bookingDto.setRide(this.ride.convertToDto());
+        bookingDto.setStatus(this.status);
+        bookingDto.setBookingTime(this.bookingTime);
+        bookingDto.setCancellationReason(this.cancellationReason);
+        bookingDto.setPassengerRating(this.passengerRating);
+        bookingDto.setDriverRating(this.driverRating);
         return bookingDto;
     }
 
-    public BookingDto convertToDtoReduce(Booking booking) {
+    public BookingDto convertToDtoReduce() {
         BookingDto bookingDto = new BookingDto();
-        bookingDto.setId(booking.getId());
-        bookingDto.setPasajero(booking.getPasajero().convertToDto(booking.getPasajero()));
-        bookingDto.setStatus(booking.getStatus());
-        bookingDto.setBookingTime(booking.getBookingTime());
+        bookingDto.setId(this.id);
+        bookingDto.setPasajero(this.pasajero.convertToDto());
+        bookingDto.setStatus(this.status);
+        bookingDto.setBookingTime(this.bookingTime);
         return bookingDto;
     }
 
-    public BookingDto convertToDtoMyBookings(Booking booking){
+    public BookingDto convertToDtoMyBookings(){
         BookingDto bookingDto = new BookingDto();
-        bookingDto.setId(booking.getId());
-        bookingDto.setRide(booking.getRide().convertToDto(booking.getRide()));
-        bookingDto.setStatus(booking.getStatus());
-        bookingDto.setBookingTime(booking.getBookingTime());
-        bookingDto.setRide(booking.getRide().convertToDtoOnlyRide(booking.getRide()));
+        bookingDto.setId(this.id);
+        bookingDto.setRide(this.ride.convertToDto());
+        bookingDto.setStatus(this.status);
+        bookingDto.setBookingTime(this.bookingTime);
+        bookingDto.setRide(this.ride.convertToDtoOnlyRide());
         return bookingDto;
     }
 

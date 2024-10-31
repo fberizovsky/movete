@@ -5,19 +5,24 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.example.movete.dto.CrearNotificacionDTO;
 import com.example.movete.model.Booking;
 import com.example.movete.model.BookingStatusEnum;
 import com.example.movete.model.Ride;
 import com.example.movete.model.Role;
 import com.example.movete.model.RoleEnum;
+import com.example.movete.model.TipoNotificacion;
 import com.example.movete.model.Usuario;
 import com.example.movete.repository.BookingRepository;
 import com.example.movete.repository.RideRepository;
 import com.example.movete.repository.RoleRepository;
 import com.example.movete.repository.UsuarioRepository;
-import java.util.Date;
+import com.example.movete.service.NotificacionService;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
+
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -36,6 +41,9 @@ public class DataInitializer implements CommandLineRunner {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private NotificacionService notificacionService;
 
 
     @Override
@@ -66,7 +74,7 @@ public class DataInitializer implements CommandLineRunner {
         usuario.setUsuario("admin");
         usuario.setEmail("admin@gmail.com");
         usuario.setPassword((passwordEncoder.encode("admin")));
-        usuario.setFechaNacimiento(LocalDate.of(2001, 10, 10));
+        usuario.setFechaNacimiento(LocalDateTime.of(2001, 10, 10, 0, 0));
         usuario.setRole(roleAdmin);
         usuarioRepository.save(usuario);
 
@@ -74,7 +82,7 @@ public class DataInitializer implements CommandLineRunner {
         usuario2.setUsuario("user");
         usuario2.setEmail("user@gmail.com");
         usuario2.setPassword((passwordEncoder.encode("user")));
-        usuario2.setFechaNacimiento(LocalDate.of(2001, 10, 10));
+        usuario2.setFechaNacimiento(LocalDateTime.of(2001, 10, 10, 0, 0));
         usuario2.setRole(roleUser);
         usuarioRepository.save(usuario2);
 
@@ -82,7 +90,7 @@ public class DataInitializer implements CommandLineRunner {
         usuario3.setUsuario("superadmin");
         usuario3.setEmail("superadmin@gmail.com");
         usuario3.setPassword(passwordEncoder.encode("superadmin"));
-        usuario3.setFechaNacimiento(LocalDate.of(2001, 10, 10));
+        usuario3.setFechaNacimiento(LocalDateTime.of(2001, 10, 10, 0, 0));
         usuario3.setRole(roleSuperAdmin);
         usuarioRepository.save(usuario3);
 
@@ -90,7 +98,7 @@ public class DataInitializer implements CommandLineRunner {
         usuario4.setUsuario("userNotVerified");
         usuario4.setEmail("usernotverified@gmail.com");
         usuario4.setPassword(passwordEncoder.encode("usernotverified"));
-        usuario4.setFechaNacimiento(LocalDate.of(2001, 10, 10));
+        usuario4.setFechaNacimiento(LocalDateTime.of(2001, 10, 10, 0, 0));
         usuario4.setRole(roleUserNotVerified);
         usuarioRepository.save(usuario4);
 
@@ -100,7 +108,7 @@ public class DataInitializer implements CommandLineRunner {
         ride.setEndLocation("Verónica");
         ride.setMaxPassengers(4);
         ride.setDescription("Viaje a Verónica");
-        ride.setStartTime(new Date(2025, 9, 10));
+        ride.setStartTime(LocalDateTime.of(2025, 9, 10, 0, 0));
         rideRepository.save(ride);
 
         Ride ride2 = new Ride();
@@ -109,7 +117,7 @@ public class DataInitializer implements CommandLineRunner {
         ride2.setEndLocation("Berisso");
         ride2.setMaxPassengers(4);
         ride2.setDescription("Viaje a Berisso");
-        ride2.setStartTime(new Date(2025, 9, 10));
+        ride2.setStartTime(LocalDateTime.of(2025, 9, 11, 0, 0));
         rideRepository.save(ride2);
 
         Ride ride3 = new Ride();
@@ -118,7 +126,7 @@ public class DataInitializer implements CommandLineRunner {
         ride3.setEndLocation("Ensenada");
         ride3.setMaxPassengers(4);
         ride3.setDescription("Viaje a Ensenada");
-        ride3.setStartTime(new Date(2025, 9, 10));
+        ride3.setStartTime(LocalDateTime.of(2025, 9, 12, 0, 0));
         rideRepository.save(ride3);
 
         Booking booking = new Booking();
@@ -130,6 +138,12 @@ public class DataInitializer implements CommandLineRunner {
         ride.setPassengers(1);
         rideRepository.save(ride);
 
+        CrearNotificacionDTO notificacion = new CrearNotificacionDTO();
+        notificacion.setTitulo("Notificación de prueba");
+        notificacion.setMensaje("Mensaje de prueba");
+        notificacion.setTipo(TipoNotificacion.MENSAJE);
+        notificacion.setUsuarios(List.of(usuario.getId(), usuario2.getId()));
+        notificacionService.crearNotificacion(notificacion);
 
     }   
 }

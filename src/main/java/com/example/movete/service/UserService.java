@@ -1,10 +1,13 @@
 package com.example.movete.service;
 
+import com.example.movete.dto.NotificacionDto;
 import com.example.movete.dto.ResetearPasswordDTO;
 import com.example.movete.dto.UsuarioDto;
+import com.example.movete.model.NotificacionUsuario;
 import com.example.movete.model.Role;
 import com.example.movete.model.RoleEnum;
 import com.example.movete.model.Usuario;
+import com.example.movete.repository.NotificacionUsuarioRepository;
 import com.example.movete.repository.RoleRepository;
 import com.example.movete.repository.UsuarioRepository;
 import com.example.movete.validators.UserValidator;
@@ -27,12 +30,15 @@ public class UserService {
     @Autowired 
     private UserValidator userValidator;
 
+    @Autowired
+    private NotificacionUsuarioRepository notificacionUsuarioRepository;
+
     public List<UsuarioDto> allUsers() {
 
         List<UsuarioDto> usersDto = new ArrayList<>();
 
         userRepository.findAll().forEach(user -> {
-            usersDto.add(user.convertToDto(user));
+            usersDto.add(user.convertToDto());
         });
 
         return usersDto;
@@ -72,6 +78,15 @@ public class UserService {
 
         user.setRole(roleRepository.findByName(RoleEnum.ROLE_USER).get());
         userRepository.save(user);
+    }
+
+    public List<NotificacionDto> getMyNotifications(Usuario currentUser) {
+        
+        List<NotificacionUsuario> notificaciones = notificacionUsuarioRepository.findByUsuarioOrderByNotificacionFechaCreacionDesc(currentUser);
+
+        return notificaciones.stream()
+            .map(notificacionUsuario -> notificacionUsuario.getNotificacion().convertToDto(notificacionUsuario))
+            .toList();
     }
 
 }

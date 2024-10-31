@@ -1,6 +1,6 @@
 package com.example.movete.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
@@ -23,7 +23,7 @@ public class RegistrarRideDTO {
 
     @NotNull(message = "La hora de inicio no puede estar vacía")
     @Future(message = "La hora de inicio debe ser una fecha futura")
-    private Date startTime;
+    private LocalDateTime startTime;
 
     @NotBlank(message = "La descripción no puede estar vacía")
     private String description;

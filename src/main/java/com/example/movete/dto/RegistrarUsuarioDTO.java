@@ -1,6 +1,6 @@
 package com.example.movete.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.example.movete.model.RoleEnum;
 
@@ -30,5 +30,5 @@ public class RegistrarUsuarioDTO {
     private RoleEnum role;
 
     @NotNull(message = "La fecha de nacimiento es obligatoria")
-    private LocalDate fechaNacimiento;
+    private LocalDateTime fechaNacimiento;
 }

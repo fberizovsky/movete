@@ -1,6 +1,6 @@
 package com.example.movete.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -40,7 +40,7 @@ public class Ride {
 
 
     @Column(nullable = false, name = "start_time")
-    private Date startTime;
+    private LocalDateTime startTime;
 
     @Column(nullable = false)
     private String description;
@@ -53,11 +53,11 @@ public class Ride {
 
     @CreationTimestamp
     @Column(name = "created_at")
-    private Date fechaCreacion;
+    private LocalDateTime fechaCreacion;
 
     @UpdateTimestamp
     @Column(name = "modified_at")
-    private Date fechaModificacion;
+    private LocalDateTime fechaModificacion;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -81,49 +81,49 @@ public class Ride {
         return rideEntity;
     }
 
-    public RideDto convertToDto(Ride ride) {
+    public RideDto convertToDto() {
         RideDto rideDto = new RideDto();
-        rideDto.setId(ride.getId());
-        rideDto.setStartLocation(ride.getStartLocation());
-        rideDto.setEndLocation(ride.getEndLocation());
-        rideDto.setStartTime(ride.getStartTime());
-        rideDto.setDescription(ride.getDescription());
-        rideDto.setMaxPassengers(ride.getMaxPassengers());
-        rideDto.setPassengers(ride.getPassengers());
-        rideDto.setFechaCreacion(ride.getFechaCreacion());
-        rideDto.setFechaModificacion(ride.getFechaModificacion());
-        rideDto.setUsuario(ride.getUsuario().convertToDto(ride.getUsuario()));
-        rideDto.setBookings(ride.getBookings().stream().map(booking -> booking.convertToDtoReduce(booking)).toList());
+        rideDto.setId(this.getId());
+        rideDto.setStartLocation(this.getStartLocation());
+        rideDto.setEndLocation(this.getEndLocation());
+        rideDto.setStartTime(this.getStartTime());
+        rideDto.setDescription(this.getDescription());
+        rideDto.setMaxPassengers(this.getMaxPassengers());
+        rideDto.setPassengers(this.getPassengers());
+        rideDto.setFechaCreacion(this.getFechaCreacion());
+        rideDto.setFechaModificacion(this.getFechaModificacion());
+        rideDto.setUsuario(this.getUsuario().convertToDto());
+        rideDto.setBookings(this.getBookings().stream().map(booking -> booking.convertToDtoReduce()).toList());
         return rideDto;
     }
 
-    public RideDto convertToDtoReduce(Ride ride) {
+    public RideDto convertToDtoReduce() {
         RideDto rideDto = new RideDto();
-        rideDto.setId(ride.getId());
-        rideDto.setStartLocation(ride.getStartLocation());
-        rideDto.setEndLocation(ride.getEndLocation());
-        rideDto.setStartTime(ride.getStartTime());
-        rideDto.setDescription(ride.getDescription());
-        rideDto.setMaxPassengers(ride.getMaxPassengers());
-        rideDto.setPassengers(ride.getPassengers());
-        rideDto.setFechaCreacion(ride.getFechaCreacion());
-        rideDto.setFechaModificacion(ride.getFechaModificacion());
-        rideDto.setUsuario(ride.getUsuario().convertToDto(ride.getUsuario()));
+        rideDto.setId(this.getId());
+        rideDto.setStartLocation(this.getStartLocation());
+        rideDto.setEndLocation(this.getEndLocation());
+        rideDto.setStartTime(this.getStartTime());
+        rideDto.setDescription(this.getDescription());
+        rideDto.setMaxPassengers(this.getMaxPassengers());
+        rideDto.setPassengers(this.getPassengers());
+        rideDto.setFechaCreacion(this.getFechaCreacion());
+        rideDto.setFechaModificacion(this.getFechaModificacion());
+        rideDto.setUsuario(this.getUsuario().convertToDto());
         return rideDto;
     }
 
-    public RideDto convertToDtoOnlyRide(Ride ride){
+    public RideDto convertToDtoOnlyRide(){
         RideDto rideDto = new RideDto();
-        rideDto.setId(ride.getId());
-        rideDto.setStartLocation(ride.getStartLocation());
-        rideDto.setEndLocation(ride.getEndLocation());
-        rideDto.setStartTime(ride.getStartTime());
-        rideDto.setDescription(ride.getDescription());
-        rideDto.setMaxPassengers(ride.getMaxPassengers());
-        rideDto.setPassengers(ride.getPassengers());
-        rideDto.setFechaCreacion(ride.getFechaCreacion());
-        rideDto.setFechaModificacion(ride.getFechaModificacion());
-        rideDto.setUsuario(ride.getUsuario().convertToDto(ride.getUsuario()));
+        rideDto.setId(this.getId());
+        rideDto.setStartLocation(this.getStartLocation());
+        rideDto.setEndLocation(this.getEndLocation());
+        rideDto.setStartTime(this.getStartTime());
+        rideDto.setDescription(this.getDescription());
+        rideDto.setMaxPassengers(this.getMaxPassengers());
+        rideDto.setPassengers(this.getPassengers());
+        rideDto.setFechaCreacion(this.getFechaCreacion());
+        rideDto.setFechaModificacion(this.getFechaModificacion());
+        rideDto.setUsuario(this.getUsuario().convertToDto());
         return rideDto;
     }
     

@@ -1,6 +1,6 @@
 package com.example.movete.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,12 +15,12 @@ public class RideDto {
     private long id;
     private String startLocation;
     private String endLocation;
-    private Date startTime;
+    private LocalDateTime startTime;
     private String description;
     private int maxPassengers;
     private int passengers;
-    private Date fechaCreacion;
-    private Date fechaModificacion;
+    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaModificacion;
     private UsuarioDto usuario;
     private List<BookingDto> bookings;
 }

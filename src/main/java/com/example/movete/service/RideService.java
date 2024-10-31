@@ -44,12 +44,12 @@ public class RideService {
     }
 
     public List<RideDto> getRides() {
-        return rideRepository.findAll().stream().map(ride -> ride.convertToDtoReduce(ride)).collect(Collectors.toList());
+        return rideRepository.findAll().stream().map(ride -> ride.convertToDtoReduce()).collect(Collectors.toList());
     }
 
    public List<RideDto> getRidesByUser(Usuario currentUser) {
     return rideRepository.findByUsuario(currentUser).stream()
-            .map(ride -> ride.convertToDto(ride))
+            .map(ride -> ride.convertToDto())
             .collect(Collectors.toList());
     }
 

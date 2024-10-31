@@ -35,7 +35,7 @@ public class UserController {
 
         Usuario currentUser = (Usuario) authentication.getPrincipal();
 
-        return ResponseEntity.ok(currentUser.convertToDto(currentUser));
+        return ResponseEntity.ok(currentUser.convertToDto());
     }
 
     
@@ -81,5 +81,16 @@ public class UserController {
         userService.validateUser(usuarioId);
 
         return ResponseEntity.ok().build();
+    }
+
+
+    @GetMapping("/mis-notificaciones")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> getMyNotifications() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Usuario currentUser = (Usuario) authentication.getPrincipal();
+
+        return ResponseEntity.ok(userService.getMyNotifications(currentUser));
     }
 }
